@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TikTok Recharge Demo - Fake Payment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 30px;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      width: 100px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background-color: #fe2c55;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e02047;
+    }
+    .loading {
+      display: none;
+      text-align: center;
+    }
+    .loading img {
+      width: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="formPage">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/TikTok_logo.svg" alt="TikTok Logo" />
+    </div>
+    <h2>Recharge Coins</h2>
+    <input type="text" placeholder="Enter TikTok Username" id="username" />
+    <select id="coinAmount">
+      <option value="70">70 Coins - $0.99</option>
+      <option value="350">350 Coins - $4.99</option>
+      <option value="700">700 Coins - $9.99</option>
+      <option value="1400">1400 Coins - $19.99</option>
+    </select>
+    <button onclick="startRecharge()">Proceed to PayPal</button>
+    <div class="loading" id="loading">
+      <p>Processing payment...</p>
+      <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading" />
+    </div>
+  </div>
+
+  <div class="container" id="confirmationPage" style="display: none; text-align: center;">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/TikTok_logo.svg" alt="TikTok Logo" />
+    </div>
+    <h2>Payment Successful</h2>
+    <p>Thank you, <span id="confirmedUser"></span>!</p>
+    <p>Your balance is now: <strong>$99,999.00</strong></p>
+    <p>You have successfully recharged <strong><span id="confirmedAmount"></span></strong> coins.</p>
+    <button onclick="goBack()">Go Back</button>
+  </div>
+
+  <script>
+    function startRecharge() {
+      const username = document.getElementById('username').value;
+      const amount = document.getElementById('coinAmount').value;
+      if (!username) {
+        alert('Please enter a username.');
+        return;
+      }
+      document.getElementById('loading').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('formPage').style.display = 'none';
+        document.getElementById('confirmationPage').style.display = 'block';
+        document.getElementById('confirmedUser').textContent = username;
+        document.getElementById('confirmedAmount').textContent = amount;
+      }, 3000);
+    }
+
+    function goBack() {
+      document.getElementById('confirmationPage').style.display = 'none';
+      document.getElementById('formPage').style.display = 'block';
+      document.getElementById('loading').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
